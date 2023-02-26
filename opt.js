@@ -19,41 +19,39 @@ fs.readFile('./inclusions.txt', 'utf8', (err, data) => {
     for (let i=0; i<testLimit; i+=lastModulus*3) {
         inclusions.forEach(j=>{
             initialN=i+j;
-            let steps = 0, lastN=initialN*2.25+1.25
+            let steps = 0, lastN=(initialN*9 + 5)>>2
             // if lastN < initialN, we already solved it. No need to continue. Otherwise...
             while (lastN > initialN) {
-                switch (lastN % 16) {
+                switch (lastN&15) {
                     case 0:
-                        lastN *= .0625;
+                        lastN = lastN>>4;
                         break;
                     case 1:
                     case 5:
                     case 9:
                     case 13:
-                        lastN = Math.ceil(.75 * lastN);
+                        lastN = ((3*lastN)>>2)+1
                         break;
                     case 2:
+                    case 6:
                     case 10:
-                        lastN = Math.ceil(.375 * lastN);
+                    case 14:
+                        lastN = lastN>>1;
                         break;
                     case 3:
-                        lastN = Math.ceil(.28125 * lastN);
+                        lastN = ((9*lastN)>>4)+1
                         break;
                     case 4:
                     case 12:
-                        lastN *= .25;
-                        break;
-                    case 6:
-                    case 14:
-                        lastN = lastN*1.125+1.25;
+                        lastN = lastN>>2;
                         break;
                     case 7:
                     case 11:
                     case 15:
-                        lastN = lastN*2.25+1.25;
+                        lastN = (lastN*9 + 5)>>2;
                         break;
                     case 8:
-                        lastN *= .125;
+                        lastN = lastN>>3;
                         break;
                 }
                 steps++

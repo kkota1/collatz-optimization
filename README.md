@@ -13,14 +13,18 @@ This conjecture probably doesn't have real-world utility, but the strategy below
 
 ---
 ### Usage
+Inclusions are not in the repo to save git space. Add them:
+
+`node inclusion-array`
 
 The optimized test `opt` goes above the test limit specified. You can run it first to figure out what number to specify for the `control` test.
 ```
-PS C:\projects\collatz> node opt 1000000000
+PS C:\projects\collatz-optimization> node opt 10000000000
 saving time by only testing 1.03% of natural numbers
-time to brute force test up to 1,006,632,959:  2647ms
-PS C:\projects\collatz> node control 1006632959    
-time to brute force test up to 1,006,632,959:  25372ms
+time to brute force test up to 10,066,329,599:  1399ms
+
+PS C:\projects\collatz-optimization> node control 10066329599
+time to brute force test up to 10,066,329,599:  17383ms
 ```
 
 ---
@@ -31,7 +35,7 @@ Both the control and optimized test iterate through natural numbers in increasin
 
 Additionally, both tests only test a subset of numbers. The control test only tests odd numbers. The optimized test only tests ~1% of numbers. More details in the next section.
 
-Finally, both tests use shortcut computations. The control test uses the well-known `(3n+1)/2` shortcut when it encounters an odd number. The optimized test uses additional shortcuts, which can be found in `opt.js`.
+Finally, both tests use shortcut computations and bitwise operators. The control test uses the well-known `(3n+1)/2` shortcut when it encounters an odd number. The optimized test uses additional shortcuts, which can be found in `opt.js`.
 
 ---
 
@@ -50,7 +54,7 @@ For example any starting number n where `n%4 === 1` will always resolve to a sma
 
 `exclusion-finder.js` is used to find additional patterns in bulk and save them to `exclusion-tier.txt`.
 
-These exclusion tiers are copy-pasted into `inclusion-array.js` and processed to generate an inclusion array (stored in inclusions.txt).
+These exclusion tiers are copy-pasted into `sets.js` and `inclusion-array.js` and processed to generate an inclusion array (stored in inclusions.txt).
 
 Then, `opt.js` reads inclusions.txt for the test loop.
 

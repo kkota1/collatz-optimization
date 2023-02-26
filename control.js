@@ -7,13 +7,13 @@ const startTime = Date.now(),
     loopStartTime = Date.now();
 
 for (let initialN=1; initialN<testLimit; initialN+=2) {
-    let lastN=initialN*1.5+.5, steps = 0;
+    let lastN=((initialN*3)>>1)+1, steps = 0;
     // if lastN < initialN, we already solved it. No need to continue. Otherwise...
     while (lastN > initialN) {
-        if (lastN % 2) {
-            lastN = lastN*1.5+.5;
+        if (lastN&1) {
+            lastN = ((lastN*3)>>1)+1;
         } else {
-            lastN *= .5;
+            lastN = lastN>>1;
         }
         steps++
         if (steps>1024){
